@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap');
+*, *::after, *::before{
+    box-sizing: border-box;
+    text-align: center;
+}
+.material-icons { /*importing material icons*/
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 51px !important;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+  }
+html{
+
+}
+.calculator{
+    background-color: grey;
+    margin: 100px auto;
+    border: 4px black solid;
+    width: 320px;
+    height: 460px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column ;
+    border-radius: 10px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.digits{
+    background-color: black;
+    color: red;
+    font-size: 55px;
+    font-family: "Major Mono Display";
+    text-align: right;
+    width: 276px;
+    height: 60px;
+    margin: 5px 5px 5px 5px;
+    padding-right: 5px;
+}
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+.buttons button{
+    border: 0px;
+    padding: 6px;
+    font-size: 40px;
+    width: 65px;
+    height: 65px;
+    margin: 2px;
+}
+.operator{
+    color: white;
+    background: black;
+}
+.buttons button.bigbutton{
+    width: 203px;
+}
