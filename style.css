@@ -26,9 +26,6 @@
   
     /* Support for IE. */
     font-feature-settings: 'liga';
-  }
-html{
-
 }
 .calculator{
     background-color: grey;
@@ -71,7 +68,4 @@ html{
 .operator{
     color: white;
     background: black;
-}
-.buttons button.bigbutton{
-    width: 134px;
 }

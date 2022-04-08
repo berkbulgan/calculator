@@ -54,6 +54,7 @@ function operatorClick(e){
                         break;
                     case "divide":
                         if(parseFloat(digit.textContent)) ans = temp / parseFloat(digit.textContent);
+                        else ans = "111111111"; // Triggers the if at 63th line to delete everything and print error.
                         break;
                 }
                 lastOperation = e["originalTarget"]["id"];
