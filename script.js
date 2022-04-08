@@ -1,18 +1,21 @@
 const numberBtn = document.querySelectorAll(".number");
 const operatorBtn = document.querySelectorAll(".operator");
 const digit = document.querySelector(".digits");
+const commaBtn = document.querySelector(".decimal");
 let newline = true;
+let lastOperation = null;
 let temp = 0;
 let ans = 0;
+
 let testEvent = null;
 
 
 function numberClick(e) {
     if (newline){
-        temp = parseInt(digit.textContent);
+        temp = parseFloat(digit.textContent);
         digit.textContent = e["originalTarget"]["value"];
         newline = false;
-    }else if (digit.textContent==="0"){
+    } else if (digit.textContent==="0"){
         digit.textContent = e["originalTarget"]["value"];
     }else if(digit.textContent.length < 6){
         digit.textContent += e["originalTarget"]["value"];
@@ -27,29 +30,59 @@ function operatorClick(e){
             deleteFunct();
             break;
         case "factorial":
-            temp = parseInt(digit.textContent)
+            temp = parseFloat(digit.textContent)
             ans = factorial(++temp);
             temp = ans;
             digit.textContent = temp;
             break;
+        case "plusminus":
+            if(digit.textContent == "0") break;
+            else if(digit.textContent[0] != "-") digit.textContent = "-" + digit.textContent;
+            else digit.textContent = digit.textContent.slice(1);
+            break;
         default:
-            if(!!temp){ /* !!temp means true if temp has any value other than 0 */
-                switch(e["originalTarget"]["id"]){
+            if(!!temp && !!lastOperation){ /* !!temp & !!lastOperation means true if they have any value other than 0 or null */
+                switch(lastOperation){
                     case "sum":
-                        ans = summary(temp, parseInt(digit.textContent));
+                        ans = temp + parseFloat(digit.textContent);
+                        break;
+                    case "multi":
+                        ans = temp * parseFloat(digit.textContent);
+                        break;
+                    case "subs":
+                        ans = temp - parseFloat(digit.textContent);
+                        break;
+                    case "divide":
+                        if(parseFloat(digit.textContent)) ans = temp / parseFloat(digit.textContent);
                         break;
                 }
+                lastOperation = e["originalTarget"]["id"];
+                newline = true;
+                ans = Math.round(ans * 10)/10;
+                if(ans.toString().length > 6){
+                    deleteFunct()
+                    ans = "ERROR";
+                }
                 digit.textContent = ans;
-                newline = true;
             } else {
-                temp = parseInt(digit.textContent);
+                lastOperation = e["originalTarget"]["id"];
                 newline = true;
+                temp = parseFloat(digit.textContent);
             }
     }
 }
 
-function summary(first, second){
-    return first+second;
+function commaShit(){
+    let hasComma = digit.textContent.includes(".");
+    if(!hasComma){
+        digit.textContent = digit.textContent + ".";
+        newline = false;
+    } else if (digit.textContent[digit.textContent.length-1] == "."){
+        console.log("it has comma at the end.");
+        backSpace();
+    } else {
+        console.log("it has comma somewhere");
+    }
 }
 
 function backSpace(){
@@ -61,9 +94,10 @@ function backSpace(){
 
 function deleteFunct(){
     digit.textContent = "0";
+    newline = true;
+    lastOperation = null;
     temp = 0;
     ans = 0;
-    newline = true;
 }
 
 function factorial(number){
@@ -74,6 +108,7 @@ function factorial(number){
     newline = true;
     return answer;
 }
-    
+
+commaBtn.addEventListener("click", commaShit);
 operatorBtn.forEach(operator => operator.addEventListener("click", operatorClick));
 numberBtn.forEach(number => number.addEventListener("click", numberClick));
